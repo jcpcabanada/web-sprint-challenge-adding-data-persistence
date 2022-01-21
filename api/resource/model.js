@@ -5,7 +5,7 @@ const getAllResources = () => {
 
 }
 
-const createResource = (newRes) => {
+const create = (newRes) => {
     return db('resources').insert(newRes)
         .then(([resource_id]) => {
             return db('projects').where('resource_id', resource_id).first()
@@ -15,5 +15,5 @@ const createResource = (newRes) => {
 
 module.exports = {
     getAllResources,
-    createResource
+    create
 }

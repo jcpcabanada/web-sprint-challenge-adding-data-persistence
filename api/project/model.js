@@ -25,7 +25,7 @@ const getAllPj = async () => {
 
 }
 
-const createPj = async (newPj) => {
+const create = async (newPj) => {
     const [project_id] = await db('projects').insert(newPj)
     return db('projects').where('project_id', project_id)
 
@@ -33,5 +33,5 @@ const createPj = async (newPj) => {
 
 module.exports = {
     getAllPj,
-    createPj
+    create
 }

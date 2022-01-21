@@ -11,13 +11,30 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-    try {
-        const newPj = await Project.create(req.body)
-        res.status(201).json(newPj)
-    } catch (err){
-        next(err)
-    }
+
+    Project.create(req.body)
+        .then(newPj => {
+            if (newPj.project_completed === 0) {
+                res.json({
+                    project_name: newPj.project_name,
+                    project_description: newPj.project_description,
+                    project_id: newPj.project_id,
+                    project_completed: false
+                })
+            } else {
+                res.json({
+                    project_name: newPj.project_name,
+                    project_description: newPj.project_description,
+                    project_id: newPj.project_id,
+                    project_completed: true
+                })
+            }
+            res.status(201).json(newPj)
+        })
+        .catch(next)
 })
+
+
 
 
     module.exports = router
