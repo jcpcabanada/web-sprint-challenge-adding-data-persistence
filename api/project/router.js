@@ -2,7 +2,7 @@ const router = require('express').Router()
 const Project = require('./model')
 
 router.get('/', async (req, res, next) => {
-     try{
+     try {
          const getAllPj = await Project.getAllPj()
          res.json(getAllPj)
      } catch (err) {
