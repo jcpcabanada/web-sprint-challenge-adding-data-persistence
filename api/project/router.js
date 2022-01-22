@@ -11,7 +11,6 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-
     Project.create(req.body)
         .then(newPj => {
             if (newPj.project_completed === 0) {

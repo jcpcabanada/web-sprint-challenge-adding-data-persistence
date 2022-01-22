@@ -5,13 +5,14 @@ const getAllResources = () => {
 
 }
 
-const create = (newRes) => {
-    return db('resources').insert(newRes)
+const create = newTable => {
+    return db('resources')
+        .insert(newTable)
         .then(([resource_id]) => {
-            return db('projects').where('resource_id', resource_id).first()
+            return db('resources').where('resource_id', resource_id).first()
         })
+};
 
-}
 
 module.exports = {
     getAllResources,

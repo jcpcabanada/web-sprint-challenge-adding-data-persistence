@@ -2,7 +2,7 @@ const db = require('../../data/dbConfig')
 
 const getAllPj = async () => {
     const allPj = await db('projects')
-    const pjResp = await allPj.map(pj => {
+    return allPj.map(pj => {
         if (pj.project_completed === 0) {
             return {
                 project_id: pj.project_id,
@@ -20,16 +20,17 @@ const getAllPj = async () => {
             }
         }
     })
-    return pjResp
-
-
 }
 
-const create = async (newPj) => {
-    const [project_id] = await db('projects').insert(newPj)
-    return db('projects').where('project_id', project_id)
+const create = newProj => {
+    return  db('projects')
+        .insert(newProj)
+        .then(([project_id]) => {
+            return  db('projects').where('project_id', project_id).first()
 
-}
+        })
+};
+
 
 module.exports = {
     getAllPj,

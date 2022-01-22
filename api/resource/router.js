@@ -10,12 +10,13 @@ router.get('/', async (req, res, next) => {
     }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', (req, res, next) => {
     Resource.create(req.body)
         .then(newRes => {
             res.status(201).json(newRes)
         })
         .catch(next)
-})
+});
+
 
 module.exports = router
